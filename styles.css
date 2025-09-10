@@ -8,10 +8,10 @@ html, body { height: 100%; }
 
 
 body {
-  background: linear-gradient(135deg, #1c1f26 0%, #161b29 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #1c1f26, #01123f);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* “ancora” il gradiente allo schermo */
 }
-
 
 
 .glass {
