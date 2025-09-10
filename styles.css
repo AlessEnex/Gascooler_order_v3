@@ -1,0 +1,108 @@
+/* ===== Base background & glass card ===== */
+:root {
+  --bg-start: #0ea5ea;   /* cyan-ish */
+  --bg-end:   #7c3aed;   /* purple */
+}
+
+html, body { height: 100%; }
+
+
+body {
+  background: linear-gradient(135deg, #1c1f26 0%, #161b29 100%);
+  color: #fff;
+}
+
+
+
+.glass {
+  position: relative;     /* tooltip resta sopra */
+  z-index: 10;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(105, 4, 151, 0);
+}
+
+/* ===== Tooltip sempre davanti ===== */
+.tooltip {
+  background: rgba(0,0,0,0.9);
+  z-index: 100000 !important;
+}
+
+/* ===== Inputs ===== */
+.custom-text-input {
+  display: grid;
+  gap: 0.35rem;
+}
+.custom-text-input label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.custom-text-input input[type="text"],
+.custom-text-input input[type="number"] {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.75);
+  color: #fff;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.6rem;
+  outline: none;
+  transition: box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+}
+.custom-text-input input::placeholder { color: rgba(255,255,255,0.7); }
+.custom-text-input input:focus {
+  border-color: #fff;
+  background: rgba(0,0,0,0.22);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+}
+
+/* ===== Radio pills ===== */
+.custom-radio {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.custom-radio > legend {
+  font-weight: 600;
+  width: 100%;
+  margin-bottom: 0.3rem;
+}
+.custom-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-radio label {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.75);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: transform .06s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  user-select: none;
+}
+.custom-radio label:hover { transform: translateY(-1px); }
+.custom-radio input[type="radio"]:checked + label {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* ===== Flatpickr sopra ogni cosa ===== */
+.flatpickr-calendar { z-index: 999999 !important; }
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: #fff;
+  color: #000;
+  padding: 0.7rem 1.1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+}
