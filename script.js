@@ -95,8 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Mailto
-    const mailto = `mailto:romane.jacques@enextechnologies.com` +
+    const mailto = `mailto:ogneva.viktoriia@enextechnologies.com` +
                    `?subject=${encodeURIComponent(subject)}` +
+                   `&cc=${encodeURIComponent('enex.acquisti@enextechnologies.com')}` +
                    `&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailto;
