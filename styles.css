@@ -4,12 +4,19 @@
   --bg-end:   #7c3aed;   /* purple */
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html, body { height: 100%; }
 
 
 body {
   background: linear-gradient(135deg, #1c1f26, #01123f);
   background-repeat: no-repeat;
+  overflow-x: hidden;
   background-attachment: fixed; /* “ancora” il gradiente allo schermo */
 }
 
@@ -23,24 +30,49 @@ body {
   border: 1px solid rgba(105, 4, 151, 0);
 }
 
+.app-shell {
+  width: auto;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.app-header {
+  flex-wrap: wrap;
+}
+.header-title {
+  min-width: 0;
+}
+.header-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 /* ===== Tooltip sempre davanti ===== */
 .tooltip {
   background: rgba(0,0,0,0.9);
   z-index: 100000 !important;
+  max-width: calc(100vw - 2rem);
+}
+.group:focus-within .tooltip {
+  display: block;
 }
 
 /* ===== Inputs ===== */
 .custom-text-input {
   display: grid;
   gap: 0.35rem;
+  min-width: 0;
 }
 .custom-text-input label {
   font-size: 0.85rem;
   opacity: 0.9;
 }
 .custom-text-input input[type="text"],
-.custom-text-input input[type="number"] {
+.custom-text-input input[type="number"],
+.custom-text-input textarea {
+  min-height: 2.75rem;
   width: 100%;
+  max-width: 100%;
   background: transparent;
   border: 1px solid rgba(255,255,255,0.75);
   color: #fff;
@@ -49,8 +81,13 @@ body {
   outline: none;
   transition: box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
 }
-.custom-text-input input::placeholder { color: rgba(255,255,255,0.7); }
-.custom-text-input input:focus {
+.custom-text-input textarea {
+  resize: vertical;
+}
+.custom-text-input input::placeholder,
+.custom-text-input textarea::placeholder { color: rgba(255,255,255,0.7); }
+.custom-text-input input:focus,
+.custom-text-input textarea:focus {
   border-color: #fff;
   background: rgba(0,0,0,0.22);
   box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
@@ -62,6 +99,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
+  min-width: 0;
 }
 .custom-radio > legend {
   font-weight: 600;
@@ -74,13 +112,18 @@ body {
   pointer-events: none;
 }
 .custom-radio label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   padding: 0.45rem 0.9rem;
   border: 1px solid rgba(255,255,255,0.75);
   border-radius: 9999px;
   cursor: pointer;
   transition: transform .06s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
   user-select: none;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .custom-radio label:hover { transform: translateY(-1px); }
 .custom-radio input[type="radio"]:checked + label {
@@ -88,14 +131,93 @@ body {
   color: #000;
   border-color: #fff;
 }
+.custom-radio input[type="radio"]:disabled + label {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.75);
+}
+.custom-radio input[type="radio"]:disabled + label:hover {
+  transform: none;
+}
+.field-note {
+  width: 100%;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.82);
+}
+
+/* ===== Mail preview ===== */
+.mail-preview {
+  position: relative;
+}
+.mail-preview-header {
+  padding-right: 5rem;
+}
+.mail-preview #copyMailBody {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.mail-preview-body {
+  min-height: 12rem;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: rgba(255,255,255,0.92);
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 0.6rem;
+  padding: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.clipboard-toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1000000;
+  transform: translate(-50%, -50%);
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.28);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.38);
+  font-size: 0.95rem;
+  font-weight: 600;
+  pointer-events: none;
+}
 
 /* ===== Flatpickr sopra ogni cosa ===== */
 .flatpickr-calendar { z-index: 999999 !important; }
 
 /* ===== Buttons ===== */
+.btn-secondary {
+  border: 1px solid rgba(255,255,255,0.7);
+  color: #fff;
+  min-height: 2.25rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: transform .06s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  white-space: nowrap;
+}
+.btn-secondary:hover,
+.btn-secondary[aria-pressed="true"] {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+.btn-secondary:hover {
+  transform: translateY(-1px);
+}
+
 .btn-primary {
   background: #fff;
   color: #000;
+  min-height: 2.75rem;
   padding: 0.7rem 1.1rem;
   border-radius: 9999px;
   font-weight: 600;
@@ -105,4 +227,90 @@ body {
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding-left: 1rem !important;
+    padding-right: 2rem !important;
+  }
+
+  .glass {
+    width: auto;
+    max-width: none;
+  }
+
+  .header-title {
+    flex: 1 1 100%;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .tooltip {
+    position: fixed !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    top: 4.5rem !important;
+    width: auto !important;
+    max-height: calc(100vh - 6rem);
+    overflow: auto;
+  }
+
+  .custom-radio {
+    gap: 0.45rem;
+  }
+
+  .custom-radio label {
+    flex: 0 1 auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  fieldset.space-y-2 label {
+    align-items: flex-start;
+  }
+
+  fieldset.space-y-2 span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .mail-preview-header {
+    padding-right: 5rem;
+  }
+
+  .mail-preview #copyMailBody {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin-top: 0;
+  }
+
+  .mail-preview-body {
+    min-height: 10rem;
+    font-size: 0.82rem;
+  }
+
+  .clipboard-toast {
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .custom-radio label {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .custom-text-input input[type="text"],
+  .custom-text-input input[type="number"],
+  .custom-text-input textarea {
+    font-size: 0.95rem;
+  }
 }
